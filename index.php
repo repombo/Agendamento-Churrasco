@@ -1,3 +1,53 @@
+<?php 
+
+  function limpar_texto($str){
+        return preg_replace("/[^0-9]/", "", $str);
+    }
+
+  include("conexao.php");
+  $erro = false;
+
+  if(count($_POST) > 0){
+
+    $nome = $_POST['nome'];
+    $telefone = $_POST['telefone'];
+    $email = $_POST['email'];
+    $data = $_POST['data'];
+    $convidados = $_POST['convidados'];
+    $servico = $_POST['servico'];
+    $endereco = $_POST['endereco'];
+    $mensagem = $_POST['mensagem'];
+
+    if(empty($nome)){
+      $erro = "Preencha o seu nome";
+    }
+
+    if(!empty($telefone)){
+      $telefone = limpar_texto($telefone);
+      if(strlen($telefone) != 11){
+        $erro = "O telefone deve seguir o padrão (11) 98888-8888";
+      }
+    } else{
+        $erro = "Preencha o seu telefone, para assim entrarmos em contato";
+    }
+
+    if(!empty($data)){
+      $pedacos = explode('/', $data);
+      if(count($pedacos) == 3){
+        $data = implode('-', array_reverse($pedacos));
+      }
+    } else{
+      $erro = "Preencha a data do evento";
+    }
+
+    if(empty($endereco)){
+      $erro = "Preencha o bairro do evento";
+    } 
+
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -197,42 +247,43 @@
     </div>
 
     <div class="comanda" id="comandaBox">
-      <form id="agendaForm">
+      <form id="agendaForm" action="" method="post">
         <div class="comanda-head">
           <h3>Comanda de agendamento</h3>
+          <?php echo $erro;?>
           <span>Nº provisório</span>
         </div>
 
         <div class="field">
           <label for="nome">Nome completo</label>
-          <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+          <input type="text" id="nome" name="nome"  placeholder="Seu nome">
         </div>
 
         <div class="row2">
           <div class="field">
             <label for="telefone">Telefone / WhatsApp</label>
-            <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+            <input type="tel" id="telefone" name="telefone"  placeholder="(11) 99999-9999">
           </div>
           <div class="field">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required placeholder="voce@email.com">
+            <input type="email" id="email" name="email"  placeholder="voce@email.com">
           </div>
         </div>
 
         <div class="row2">
           <div class="field">
             <label for="data">Data do evento</label>
-            <input type="date" id="data" name="data" required>
+            <input type="date" id="data" name="data" >
           </div>
           <div class="field">
             <label for="convidados">Nº de convidados</label>
-            <input type="number" id="convidados" name="convidados" min="1" required placeholder="Ex: 25">
+            <input type="number" id="convidados" name="convidados" min="1" placeholder="Ex: 25">
           </div>
         </div>
 
         <div class="field">
           <label for="servico">Tipo de serviço</label>
-          <select id="servico" name="servico" required>
+          <select id="servico" name="servico">
             <option value="" disabled selected>Selecione um pacote</option>
             <option value="espeto-corrido">Espeto Corrido</option>
             <option value="churrasco-completo">Churrasco Completo</option>
@@ -243,7 +294,7 @@
 
         <div class="field">
           <label for="endereco">Endereço do evento</label>
-          <input type="text" id="endereco" name="endereco" required placeholder="Rua, número, cidade">
+          <input type="text" id="endereco" name="endereco" placeholder="Rua, número, cidade">
         </div>
 
         <div class="field">

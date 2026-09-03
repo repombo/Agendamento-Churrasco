@@ -12,6 +12,7 @@
     }
   }
 
+  /*
   // formulário de agendamento (sem backend — mostra confirmação estilo carimbo)
   const form = document.getElementById('agendaForm');
   const success = document.getElementById('comandaSuccess');
@@ -31,4 +32,4 @@
 
     comandaBox.classList.add('hide-form');
     success.classList.add('show');
-  });
+  });*/
