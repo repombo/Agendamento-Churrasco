@@ -1,9 +1,5 @@
 <?php 
 
-  function limpar_texto($str){
-        return preg_replace("/[^0-9]/", "", $str);
-    }
-
   include("conexao.php");
   $erro = false;
   $deu_certo = false;
@@ -56,7 +52,7 @@
       VALUES ('$data', '$email', '$endereco', '$nome', '$convidados', '$mensagem', '$servico', '$telefone')";
       $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
       if($deu_certo){
-        $de_certo = "<p><b>Sua data foi pré-agendada com sucesso! Aguarde que em breve entraremos em contato!</b></p>";
+        $deu_certo = "<p><b>Sua data foi pré-agendada com sucesso! Aguarde que em breve entraremos em contato!</b></p>";
       }
     }
 
@@ -267,7 +263,7 @@
       <form id="agendaForm" action="" method="post">
         <div class="comanda-head">
           <h3>Comanda de agendamento</h3>
-          <?php echo $deu_certo;?>
+          <?php if($deu_certo){echo $deu_certo;} else{echo $erro;}?>
           <span>Nº provisório</span>
         </div>
 

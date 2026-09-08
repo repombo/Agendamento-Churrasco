@@ -1,0 +1,454 @@
+/* ============================================================
+   BRASA & ESPETO — Painel administrativo
+   Paleta e tipografia herdadas do site público (index.php):
+   Anton (display), Work Sans (texto), JetBrains Mono (dados)
+   ============================================================ */
+
+:root{
+  --carvao:      #15100d;
+  --carvao-2:    #1d1712;
+  --carvao-3:    #251d17;
+  --brasa:       #c96b3f;
+  --brasa-forte: #e8824c;
+  --ouro:        #d9a441;
+  --fumaca:      #8f8172;
+  --fumaca-2:    #5c5346;
+  --creme:       #f3ead9;
+  --creme-fraca: #cdc2ae;
+  --verde:       #7c9a68;
+  --vermelho:    #b6503f;
+  --linha:       #382c22;
+
+  --fonte-display: 'Anton', sans-serif;
+  --fonte-texto:   'Work Sans', sans-serif;
+  --fonte-dados:   'JetBrains Mono', monospace;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin:0;
+  background: var(--carvao);
+  color: var(--creme);
+  font-family: var(--fonte-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; text-decoration: none; }
+button{ font-family: inherit; cursor: pointer; }
+
+/* leve textura de brasa no fundo, reaproveitando a linguagem do hero */
+.textura-carvao{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(201,107,63,0.06), transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(217,164,65,0.05), transparent 45%);
+  z-index: 0;
+}
+
+/* ---------------------------------------------------------
+   TELA DE LOGIN
+--------------------------------------------------------- */
+.login-shell{
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.login-card{
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--carvao-2);
+  border: 1px solid var(--linha);
+  padding: 2.4rem 2.2rem 2rem;
+}
+
+.login-card::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brasa), var(--ouro));
+}
+
+.login-logo{
+  font-family: var(--fonte-display);
+  font-size: 1.4rem;
+  letter-spacing: .02em;
+}
+.login-logo .dot{ color: var(--brasa); }
+
+.login-card h1{
+  font-family: var(--fonte-texto);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--creme-fraca);
+  margin: 1.4rem 0 .2rem;
+}
+
+.login-card p.hint{
+  margin: 0 0 1.6rem;
+  color: var(--fumaca);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.campo{ margin-bottom: 1.1rem; }
+.campo label{
+  display:block;
+  font-size: .78rem;
+  color: var(--creme-fraca);
+  margin-bottom: .35rem;
+}
+.campo input{
+  width: 100%;
+  background: var(--carvao);
+  border: 1px solid var(--linha);
+  color: var(--creme);
+  padding: .7rem .8rem;
+  font-family: var(--fonte-texto);
+  font-size: .92rem;
+}
+.campo input:focus{
+  outline: none;
+  border-color: var(--brasa);
+}
+
+.btn-entrar{
+  width: 100%;
+  margin-top: .4rem;
+  padding: .8rem;
+  background: var(--brasa);
+  border: none;
+  color: var(--carvao);
+  font-weight: 600;
+  font-size: .92rem;
+  letter-spacing: .01em;
+  transition: background .15s ease;
+}
+.btn-entrar:hover{ background: var(--brasa-forte); }
+
+.login-erro{
+  background: rgba(182,80,63,0.12);
+  border: 1px solid var(--vermelho);
+  color: #e6b3a9;
+  font-size: .82rem;
+  padding: .6rem .75rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ---------------------------------------------------------
+   ESTRUTURA DO PAINEL
+--------------------------------------------------------- */
+.admin-shell{
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* --- sidebar --- */
+.sidebar{
+  background: var(--carvao-2);
+  border-right: 1px solid var(--linha);
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.2rem;
+}
+
+.sidebar .logo{
+  font-family: var(--fonte-display);
+  font-size: 1.15rem;
+  letter-spacing: .01em;
+  padding: 0 .3rem .4rem;
+}
+.sidebar .logo .dot{ color: var(--brasa); }
+
+.sidebar .logo-sub{
+  font-family: var(--fonte-dados);
+  font-size: .68rem;
+  color: var(--fumaca);
+  padding: 0 .3rem 1.8rem;
+  border-bottom: 1px solid var(--linha);
+  margin-bottom: 1.4rem;
+}
+
+.nav-admin{ list-style:none; margin:0; padding:0; flex: 1; }
+.nav-admin li + li{ margin-top: .2rem; }
+
+.nav-admin a{
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .65rem .7rem;
+  font-size: .88rem;
+  color: var(--creme-fraca);
+  border-left: 2px solid transparent;
+}
+.nav-admin a .marca{
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fumaca-2);
+  flex-shrink: 0;
+}
+.nav-admin a:hover{ color: var(--creme); }
+.nav-admin a.ativa{
+  color: var(--creme);
+  border-left-color: var(--brasa);
+  background: rgba(201,107,63,0.08);
+}
+.nav-admin a.ativa .marca{ background: var(--brasa); }
+
+.sidebar-footer{
+  border-top: 1px solid var(--linha);
+  padding-top: 1rem;
+  font-size: .8rem;
+}
+.sidebar-footer .quem{ color: var(--fumaca); margin-bottom: .5rem; }
+.sidebar-footer a.sair{ color: var(--brasa); }
+.sidebar-footer a.sair:hover{ color: var(--brasa-forte); }
+
+/* --- main --- */
+.main{ padding: 2rem 2.4rem 3rem; min-width: 0; }
+
+.topbar{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin-bottom: 1.8rem;
+}
+.topbar h1{
+  font-family: var(--fonte-display);
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: .01em;
+  margin: 0;
+}
+.topbar .data-hoje{
+  font-family: var(--fonte-dados);
+  font-size: .8rem;
+  color: var(--fumaca);
+}
+
+/* --- estatísticas: etiquetas de espeto, não cards de SaaS --- */
+.stats-row{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--linha);
+  border: 1px solid var(--linha);
+  margin-bottom: 2rem;
+}
+.etiqueta{
+  background: var(--carvao-2);
+  padding: 1.1rem 1.2rem;
+  border-left: 3px solid var(--fumaca-2);
+}
+.etiqueta.cor-brasa{ border-left-color: var(--brasa); }
+.etiqueta.cor-ouro{ border-left-color: var(--ouro); }
+.etiqueta.cor-verde{ border-left-color: var(--verde); }
+.etiqueta.cor-vermelho{ border-left-color: var(--vermelho); }
+
+.etiqueta .num{
+  font-family: var(--fonte-dados);
+  font-size: 1.7rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+}
+.etiqueta .rotulo{
+  display: block;
+  margin-top: .4rem;
+  font-size: .78rem;
+  color: var(--fumaca);
+}
+
+/* --- barra de busca e filtros (links prontos para o PHP tratar via $_GET) --- */
+.toolbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.busca-form{ display: flex; gap: .5rem; flex: 1; max-width: 340px; }
+.busca-form input{
+  flex: 1;
+  background: var(--carvao-2);
+  border: 1px solid var(--linha);
+  color: var(--creme);
+  padding: .55rem .7rem;
+  font-size: .85rem;
+}
+.busca-form input:focus{ outline: none; border-color: var(--brasa); }
+.busca-form button{
+  background: var(--carvao-2);
+  border: 1px solid var(--linha);
+  color: var(--creme-fraca);
+  padding: .55rem .8rem;
+  font-size: .85rem;
+}
+.busca-form button:hover{ border-color: var(--brasa); color: var(--creme); }
+
+.filtros{
+  display: flex;
+  gap: .3rem;
+  font-family: var(--fonte-dados);
+  font-size: .78rem;
+}
+.filtros a{
+  padding: .5rem .8rem;
+  color: var(--fumaca);
+  border: 1px solid var(--linha);
+}
+.filtros a.ativo{
+  color: var(--carvao);
+  background: var(--brasa);
+  border-color: var(--brasa);
+}
+.filtros a:not(.ativo):hover{ color: var(--creme); border-color: var(--fumaca-2); }
+
+/* --- lista de comandas, estilo ticket de cozinha --- */
+.comandas-list{
+  border: 1px solid var(--linha);
+  background: var(--carvao-2);
+}
+
+table{ width: 100%; border-collapse: collapse; }
+
+thead th{
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--fumaca);
+  padding: .8rem 1rem;
+  border-bottom: 1px solid var(--linha);
+  white-space: nowrap;
+}
+
+tbody tr{
+  border-bottom: 1px dashed var(--linha);
+  position: relative;
+}
+tbody tr:last-child{ border-bottom: none; }
+tbody tr:hover{ background: rgba(201,107,63,0.04); }
+
+/* furinho de comanda destacada, à esquerda da linha */
+tbody tr td:first-child{
+  position: relative;
+  padding-left: 1.6rem;
+}
+tbody tr td:first-child::before{
+  content:"";
+  position: absolute;
+  left: .65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--carvao);
+  border: 1px solid var(--linha);
+}
+
+td{
+  padding: .85rem 1rem;
+  font-size: .85rem;
+  vertical-align: top;
+  color: var(--creme-fraca);
+}
+
+td .principal{ color: var(--creme); font-weight: 500; }
+td .secundario{ display:block; color: var(--fumaca); font-size: .78rem; margin-top: .15rem; }
+td.mono{ font-family: var(--fonte-dados); font-size: .8rem; color: var(--creme-fraca); }
+
+.status{
+  display: inline-block;
+  padding: .25rem .55rem;
+  font-size: .72rem;
+  font-family: var(--fonte-dados);
+  border: 1px solid transparent;
+}
+.status-pendente{ color: var(--ouro); border-color: var(--ouro); background: rgba(217,164,65,0.08); }
+.status-confirmado{ color: var(--verde); border-color: var(--verde); background: rgba(124,154,104,0.08); }
+.status-cancelado{ color: var(--vermelho); border-color: var(--vermelho); background: rgba(182,80,63,0.08); }
+
+details.obs summary{
+  cursor: pointer;
+  color: var(--brasa);
+  font-size: .78rem;
+  list-style: none;
+}
+details.obs summary::-webkit-details-marker{ display:none; }
+details.obs summary::before{ content: "+ "; }
+details.obs[open] summary::before{ content: "– "; }
+details.obs p{
+  margin: .4rem 0 0;
+  font-size: .78rem;
+  color: var(--fumaca);
+  max-width: 220px;
+}
+
+.acoes{ display: flex; gap: .4rem; flex-wrap: wrap; }
+.acao-form{ display:inline; }
+.acoes button{
+  background: none;
+  border: 1px solid var(--linha);
+  color: var(--creme-fraca);
+  padding: .35rem .6rem;
+  font-size: .74rem;
+}
+.acoes button.confirmar:hover{ border-color: var(--verde); color: var(--verde); }
+.acoes button.cancelar:hover{ border-color: var(--vermelho); color: var(--vermelho); }
+.acoes button.excluir:hover{ border-color: var(--vermelho); color: var(--vermelho); }
+
+.sem-resultado{
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--fumaca);
+  font-size: .9rem;
+}
+
+.paginacao{
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+  margin-top: 1.4rem;
+  font-family: var(--fonte-dados);
+  font-size: .78rem;
+}
+.paginacao a{
+  padding: .45rem .75rem;
+  border: 1px solid var(--linha);
+  color: var(--fumaca);
+}
+.paginacao a.atual{ color: var(--creme); border-color: var(--brasa); }
+.paginacao a:hover{ color: var(--creme); }
+
+@media (max-width: 880px){
+  .admin-shell{ grid-template-columns: 1fr; }
+  .sidebar{
+    position: sticky; top:0; z-index: 5;
+    flex-direction: row;
+    align-items: center;
+    padding: .9rem 1.2rem;
+    overflow-x: auto;
+  }
+  .sidebar .logo-sub{ display:none; }
+  .nav-admin{ display:flex; flex:none; }
+  .nav-admin li + li{ margin: 0 0 0 .2rem; }
+  .sidebar-footer{ display:none; }
+  .main{ padding: 1.4rem; }
+  .stats-row{ grid-template-columns: repeat(2,1fr); }
+  table{ display:block; overflow-x: auto; white-space: nowrap; }
+}

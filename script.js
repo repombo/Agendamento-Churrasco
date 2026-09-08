@@ -32,4 +32,5 @@
 
     comandaBox.classList.add('hide-form');
     success.classList.add('show');
-  });*/
+  });
+*/
