@@ -6,6 +6,7 @@
 
   include("conexao.php");
   $erro = false;
+  $deu_certo = false;
 
   if(count($_POST) > 0){
 
@@ -44,6 +45,22 @@
       $erro = "Preencha o bairro do evento";
     } 
 
+    if(empty($convidados)){
+      $erro = "Preencha a quantidade de convidados!";
+    } 
+
+    if($erro){
+      echo "<p><b>Erro: $erro </b></p>";
+    } else{
+      $sql_code = "INSERT INTO pre_agendamento (data_evento, email, endereco, nome_cliente, nr_convidados, observacao, servico, telefone)
+      VALUES ('$data', '$email', '$endereco', '$nome', '$convidados', '$mensagem', '$servico', '$telefone')";
+      $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+      if($deu_certo){
+        $de_certo = "<p><b>Sua data foi pré-agendada com sucesso! Aguarde que em breve entraremos em contato!</b></p>";
+      }
+    }
+
+    
   }
 
 ?>
@@ -250,7 +267,7 @@
       <form id="agendaForm" action="" method="post">
         <div class="comanda-head">
           <h3>Comanda de agendamento</h3>
-          <?php echo $erro;?>
+          <?php echo $deu_certo;?>
           <span>Nº provisório</span>
         </div>
 
