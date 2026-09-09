@@ -84,6 +84,7 @@
       <li><a href="#agendar">Agendar</a></li>
     </ul>
     <a href="#agendar" class="nav-cta">Agendar agora</a>
+    <a href="admin.php" class="nav-cta">Painel ADM</a>
   </nav>
 </header>
 

@@ -5,6 +5,7 @@ include('conexao.php');
 $sql_clientes = "select * from pre_agendamento";
 $query_clientes = $mysqli->query($sql_clientes) or die($mysqli->error);
 $num_clientes = $query_clientes->num_rows;
+$cliente = $query_clientes->fetch_assoc();
 
 ?>
 
@@ -31,7 +32,7 @@ $num_clientes = $query_clientes->num_rows;
     <div class="logo-sub">PAINEL · v1.0</div>
 
     <ul class="nav-admin">
-      <li><a href="admin.html" class="ativa"><span class="marca"></span> Agendamentos</a></li>
+      <li><a href="admin.php" class="ativa"><span class="marca"></span> Agendamentos</a></li>
       <li><a href="#"><span class="marca"></span> Serviços</a></li>
       <li><a href="#"><span class="marca"></span> Relatórios</a></li>
       <li><a href="#"><span class="marca"></span> Configurações</a></li>
@@ -40,7 +41,7 @@ $num_clientes = $query_clientes->num_rows;
     <div class="sidebar-footer">
       <!-- PHP: trocar pelo nome do administrador logado, ex. $_SESSION['admin_nome'] -->
       <div class="quem">Logado como <strong>Admin</strong></div>
-      <a href="login.html" class="sair">Sair</a>
+      <a href="login.php" class="sair">Sair</a>
     </div>
   </aside>
 
@@ -48,15 +49,14 @@ $num_clientes = $query_clientes->num_rows;
 
     <div class="topbar">
       <h1>Agendamentos</h1>
-      <!-- PHP: exibir a data atual, ex. <?= date('d/m/Y') ?> -->
-      <div class="data-hoje">08/09/2026</div>
+      <div class="data-hoje"><?php echo date('d/m/Y'); ?></div>
     </div>
 
     <!-- PHP: os quatro números abaixo devem vir de consultas agregadas na tabela
          pre_agendamento, ex.: SELECT COUNT(*) ..., SELECT SUM(nr_convidados) ... -->
     <section class="stats-row">
       <div class="etiqueta cor-brasa">
-        <span class="num">18</span>
+        <span class="num"><?php echo $num_clientes?></span>
         <span class="rotulo">Agendamentos no mês</span>
       </div>
       <div class="etiqueta cor-ouro">
@@ -141,12 +141,12 @@ $num_clientes = $query_clientes->num_rows;
             </td>
             <td><span class="status status-pendente">Pendente</span></td>
             <td class="acoes">
-              <form class="acao-form" action="" method="post">
-                <input type="hidden" name="id" value="1">
+              <form class="acao-form" action="admin_editar.php" method="post">
+                <input type="hidden" name="id" value="<?php echo $cliente['id'];?>">
                 <button type="submit" name="acao" value="confirmar" class="confirmar">Confirmar</button>
               </form>
-              <form class="acao-form" action="" method="post">
-                <input type="hidden" name="id" value="1">
+              <form class="acao-form" action="admin_excluir.php" method="post">
+                <input type="hidden" name="id" value="">
                 <button type="submit" name="acao" value="cancelar" class="cancelar">Cancelar</button>
               </form>
               <form class="acao-form" action="" method="post" onsubmit="return false;">
