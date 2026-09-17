@@ -5,8 +5,6 @@ include('conexao.php');
 $sql_clientes = "select * from pre_agendamento";
 $query_clientes = $mysqli->query($sql_clientes) or die($mysqli->error);
 $num_clientes = $query_clientes->num_rows;
-$cliente = $query_clientes->fetch_assoc();
-
 ?>
 
 
@@ -114,10 +112,9 @@ $cliente = $query_clientes->fetch_assoc();
         </thead>
 
         <tbody>
-        <!-- PHP: substituir todo este <tbody> estático por um loop, ex.: -->
              <?php if($num_clientes == 0){ ?>
                 <tr>
-                    <td colspan="7">Nenhum cliente cadastrado</td>
+                    <td colspan="9">Nenhum cliente cadastrado</td>
                 </tr>
               <?php } else{
                 while($cliente = $query_clientes->fetch_assoc()){ ?>
@@ -139,14 +136,14 @@ $cliente = $query_clientes->fetch_assoc();
                 <p><?php echo $cliente['observacao']?></p>
               </details>
             </td>
-            <td><span class="status status-pendente">Pendente</span></td>
+            <td><span class="status status-pendente"><?php echo $cliente['status']?></span></td>
             <td class="acoes">
               <form class="acao-form" action="admin_editar.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $cliente['id'];?>">
                 <button type="submit" name="acao" value="confirmar" class="confirmar">Confirmar</button>
               </form>
               <form class="acao-form" action="admin_excluir.php" method="post">
-                <input type="hidden" name="id" value="">
+                <input type="hidden" name="id" value="<?php echo $cliente['id'];?>">
                 <button type="submit" name="acao" value="cancelar" class="cancelar">Cancelar</button>
               </form>
               <form class="acao-form" action="" method="post" onsubmit="return false;">
